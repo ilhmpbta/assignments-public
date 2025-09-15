@@ -1,0 +1,50 @@
+* {
+  margin: 5px;
+  text-decoration: none;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.title h2 {
+    color:green;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.title p {
+    color:black;
+    font-size: 15px;
+}
+
+.portfolio{
+    text-align:center;
+}
+.row {
+    margin: 0px -18px;
+    padding: 8px;
+}
+.row>.column {
+    padding: 6px;
+}
+.column {
+    float: left;
+    width: 300px;
+    position: relative; /* Add position relative */
+    transition: all 0.3s ease; /* Smooth transition */
+}
+.column:hover {
+    width: 25%;
+    top: -20px; /* Move up on hover */
+    box-shadow: 0 14px 8px rgba(0, 128, 0, 0.5); /* Add box shadow on hover */
+}
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+/* content decoration */
+.content {
+    background-color: white;
+    padding: 10px;
+    border: 1px solid gray;
+}
