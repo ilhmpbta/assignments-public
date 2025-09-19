@@ -6,9 +6,12 @@
 }
 
 .title h2 {
-    color:green;
+    color:white;
+    padding: 10px;
     font-weight: bold;
     font-size: 30px;
+    background-color: green;
+    text-align: center;
 }
 
 .title p {
@@ -22,19 +25,21 @@
 .row {
     margin: 0px -18px;
     padding: 8px;
+    text-align: center;
 }
 .row>.column {
     padding: 6px;
 }
 .column {
-    float: left;
-    width: 300px;
-    position: relative; /* Add position relative */
-    transition: all 0.3s ease; /* Smooth transition */
+    display:inline-block;
+
+    width: 20%;
+    position: flex; /* Add position relative */
+    transition: all 5s ease; /* Smooth transition */
 }
 .column:hover {
-    width: 25%;
-    top: -20px; /* Move up on hover */
+    width: 30%;
+    top: 10px; /* Move up on hover */
     box-shadow: 0 14px 8px rgba(0, 128, 0, 0.5); /* Add box shadow on hover */
 }
 .row:after {
