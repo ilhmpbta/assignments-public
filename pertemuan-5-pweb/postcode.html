@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Postcode</title>
+    <style>
+        .box {
+            width: 500px;
+            height: auto;
+            background-color:white;
+            border: 2px solid gray;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px auto;
+        }
+
+        .box th,td {
+            padding: 5px;
+            font-size: large;
+            text-align: left;
+        }
+
+        .box input, select {
+            width: 100%;
+            height: 35px;
+            border-radius: 10px;
+            background-color: white;
+            padding: 0px 10px;
+            font-size: medium;      
+            line-height: normal;   
+            box-sizing: border-box;
+            border: 1px solid gray;
+        }
+
+        #resultBox {
+            margin-top: 15px;
+            padding: 10px;
+            border: 1px solid gray;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h3>Postcode</h3>
+        <form id="postcodeForm">
+            <table width="100%">
+                <tr>
+                    <td>Provinsi</td>
+                    <td>
+                        <select id="provinceSelect" name="province" required>
+                            <option value="" selected disabled>Pick one</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Kota/Kabupaten</td>
+                    <td>
+                        <select id="citySelect" name="city" required disabled>
+                            <option value="" selected disabled>Pick one</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Kecamatan</td>
+                    <td>
+                        <select id="districtSelect" name="district" required disabled>
+                            <option value="" selected disabled>Pick one</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="Cari" style="background-color: green; color: white; text-align: center; width: 100%; border-radius: 10px; height: 35px;">
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <div id="resultBox"></div>
+    </div>
+
+    <script src="data-kodepos.js"></script>
+
+    <script>
+        function initPostcodeDropdown() {
+            const provinceSelect = document.getElementById('provinceSelect');
+            const citySelect     = document.getElementById('citySelect');
+            const districtSelect = document.getElementById('districtSelect');
+            const form           = document.getElementById('postcodeForm');
+            const resultBox      = document.getElementById('resultBox');
+
+            function populateSelect(select, items, placeholder) {
+                select.innerHTML = `<option value="">${placeholder}</option>`;
+                if (items) {
+                    Object.keys(items).forEach(key => {
+                        const option = document.createElement('option');
+                        option.value = key;
+                        option.textContent = key;
+                        select.appendChild(option);
+                    });
+                    select.disabled = false;
+                } else {
+                    select.disabled = true;
+                }
+            }
+
+            populateSelect(provinceSelect, kodeposData, "Please fill out the province");
+            citySelect.disabled = true;
+            districtSelect.disabled = true;
+
+            provinceSelect.addEventListener('change', () => {
+                const cities = kodeposData[provinceSelect.value] || null;
+                populateSelect(citySelect, cities, "Please fill out the city");
+                populateSelect(districtSelect, null, "Please fill out the district");
+            });
+
+            citySelect.addEventListener('change', () => {
+                const districts = (kodeposData[provinceSelect.value] || {})[citySelect.value] || null;
+                populateSelect(districtSelect, districts, "Please fill out the district");
+            });
+
+            form.addEventListener('submit', e => {
+                e.preventDefault();
+                const prov = provinceSelect.value;
+                const city = citySelect.value;
+                const dist = districtSelect.value;
+
+                if (prov && city && dist) {
+                    const data = kodeposData[prov][city][dist];
+                    resultBox.innerHTML = `
+                        <p><strong>Postcode:</strong> ${data.code}</p>
+                        <p><strong>Areas:</strong> ${data.info}</p>
+                    `;
+                } else {
+                    resultBox.innerHTML = '<p>Please fill out all the form</p>';
+                }
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", initPostcodeDropdown);
+    </script>
+</body>
+</html>

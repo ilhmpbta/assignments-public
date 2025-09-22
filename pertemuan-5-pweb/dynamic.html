@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<title>Dynamic</title>
+<head>
+</head>
+<style>
+    .box {
+        width: 500px;
+        height: auto;
+        background-color:white;
+        border: 2px solid gray;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 10px auto;
+    }
+
+    .box th,td {
+        padding: 5px;
+        font-size: large;
+        text-align: left;
+    }
+
+    .box input, select {
+        width: 100%;
+        height: 35px;
+        border-radius: 10px;
+        background-color: white;
+        padding: 0px 10px;
+        font-size: medium;      
+        line-height: normal;   
+        box-sizing: border-box;
+        border: 1px solid gray;
+    }
+</style>
+<body>
+    <div class="box">
+        <h3>Dynamic Catalog</h3>
+        <form>
+            <table width="100%">
+                <tr>
+                    <td>Tipe Barang</td>
+                    <td>
+                        <select id="type">
+                            <option disabled selected>Pick one</option>
+                            <option value="OS">Operating System</option>
+                            <option value="Smartphone">Smartphone</option>
+                            <option value="ISP">Internet Service Provider</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Merk</td>
+                    <td>
+                        <select id="merk">
+                            <option disabled selected>You have not picked the type</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" value="Cari" onclick="checker()" style="background-color: green; color: white; text-align: center; width: 100%; border-radius: 10px; height: 35px; "></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+<script>
+    const selectType = document.getElementById('type');
+    const selectMerk = document.getElementById('merk');
+
+    selectType.addEventListener('change', () => {
+        while (selectMerk.firstChild) {
+            selectMerk.removeChild(selectMerk.firstChild);
+        }
+
+        const typeOption = selectType.value;
+        let merkOption = [];
+
+        if (typeOption === 'OS') {
+            merkOption = [
+                { value: 'linux', text: 'Linux' },
+                { value: 'windows', text: 'Windows' },
+                { value: 'macintosh', text: 'Macintosh' },
+                { value: 'ios', text: 'iOS' },
+                { value: 'android', text: 'Android' }
+            ];
+
+        } else if (typeOption === 'Smartphone') {
+            merkOption = [
+                { value: 'samsung', text: 'Samsung' },
+                { value: 'iphone', text: 'iPhone' },
+                { value: 'xiaomi', text: 'Xiaomi' },
+                { value: 'huawei', text: 'Huawei' },
+                { value: 'infinix', text: 'Infinix' },
+            ];
+        } else if (typeOption === 'ISP') {
+            merkOption = [
+                { value: 'indihome', text: 'Indihome' },
+                { value: 'biznet', text: 'Biznet' }, 
+                { value: 'smartfren', text: 'Smartfren' }, 
+                { value: 'myrepublic', text: 'MyRepublic' }, 
+                { value: 'starlink', text: 'Starllink' }, 
+            ];
+        }
+
+        merkOption.forEach(item => {
+            const newOption = document.createElement('option');
+            newOption.value = item.value;
+            newOption.textContent = item.text;
+            selectMerk.appendChild(newOption);
+        });
+    });
+</script>
