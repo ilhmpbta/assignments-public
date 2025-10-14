@@ -9,6 +9,10 @@ public class Menu {
         this.scanner = new Scanner(System.in);
     }
 
+    public Menu() {
+        //TODO Auto-generated constructor stub
+    }
+
     public void showMenu() {
         while (true) {
             System.out.println("\n===== MENU UTAMA =====");

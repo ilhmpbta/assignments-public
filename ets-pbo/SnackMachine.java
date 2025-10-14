@@ -1,6 +1,3 @@
-import java.util.Scanner;
-import java.util.Stack;
-
 public class SnackMachine {
     public Inventory inventory;
     public Logger logger;
