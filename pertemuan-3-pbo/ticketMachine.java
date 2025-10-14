@@ -8,6 +8,7 @@ public class ticketMachine
 {
     private int price;
     private int balance;
+    @SuppressWarnings("unused")
     private int total;
 
     public ticketMachine(int cost) {
