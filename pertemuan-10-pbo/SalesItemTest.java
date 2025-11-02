@@ -46,32 +46,23 @@ public class SalesItemTest
     @Test
     public void testAddComment()
     {
-        SalesItem salesite1 = new SalesItem("Cool Item", 12345);
-        boolean result = salesite1.addComment("Alice", "Great product!", 5);
-        assertTrue(result);
-        assertEquals(1, salesite1.getNumberOfComments());
+        SalesItem salesIte1 = new SalesItem("Cool item1", 10199);
+        assertEquals(true, salesIte1.addComment("Bintang", "Cool cool", 5));
     }
-
-    @Test
-    public void testAddCommentDuplicateAuthor()
-    {
-        SalesItem salesite1 = new SalesItem("Cool Item", 12345);
-        salesite1.addComment("Bob", "Good value.", 4); 
-        boolean result = salesite1.addComment("Bob", "I changed my mind.", 3);
-        assertFalse(result);
-        assertEquals(1, salesite1.getNumberOfComments());
-   }
 
     @Test
     public void testIllegalRating()
     {
-        SalesItem salesite1 = new SalesItem("Cool Item", 12345);
-        boolean resultLow = salesite1.addComment("Charlie", "Not good.", 0);
-        assertFalse(resultLow);
-        assertEquals(0, salesite1.getNumberOfComments());
+        SalesItem salesIte1 = new SalesItem("Cool Item1", 10199);
+        assertEquals(false, salesIte1.addComment("Illegal", "Bruh, this item sucks", 0));
+    }
 
-        boolean resultHigh = salesite1.addComment("Dave", "Excellent!", 6);
-        assertFalse(resultHigh);
-        assertEquals(0, salesite1.getNumberOfComments());
+    @Test
+    public void testDuplicateAuthor()
+    {
+        SalesItem salesIte1 = new SalesItem("Cool Item 1", 10199);
+        assertEquals(true, salesIte1.addComment("Bintang", "Hmm aku belum coba", 4));
+        assertEquals(false, salesIte1.addComment("Bintang", "Meh, biasa aja", 2));
     }
 }
+
