@@ -15,13 +15,16 @@ public class Simulator
     public Simulator(int depth, int width){
         field = new Field(depth, width);
         animals = new ArrayList<>();
+        populate();
     }
     
     public void simulate(int steps) {
-        for (int step = 0; step < steps; step++){
+        for (int step = 1; step <= steps; step++){
             List<Animal> newAnimals = new ArrayList<>();
+            System.out.println("Step " + step + " Foxes: " + count(Fox.class) + " Rabbits: " + count(Rabbit.class));
+            field.print2d();
             
-            for (Animal animal: animals) {
+            for (Animal animal: new ArrayList<>(animals)) {
                 animal.act(newAnimals);
                 if (!animal.isAlive()) animals.remove(animal);
             }
@@ -48,4 +51,12 @@ public class Simulator
             }
         }
     }
+    
+    private int count(Class cls) {
+        int c = 0;
+        for (Animal a : animals)
+            if (cls.isInstance(a)) c++;
+        return c;
+    }
+
 }

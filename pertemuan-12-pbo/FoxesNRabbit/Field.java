@@ -68,4 +68,16 @@ public class Field
             }
         } return locations;
     }
+    
+    public void print2d() {
+        for (int r = 0; r < field.length; r++) {
+            for (int c = 0; c < field[0].length; c++) {
+                Object obj = field[r][c];
+                if (obj instanceof Fox) System.out.print("F ");
+                else if (obj instanceof Rabbit) System.out.print("R ");
+                else System.out.print(". ");
+            }
+            System.out.println();
+        }
+    }
 }
